@@ -2,10 +2,16 @@ import React from 'react';
 import {Link} from "react-router-dom"
 import "../styles/Result.css";
 import ResultTable from "./ResultTable";
+import { resetAllAction } from '../redux/question_reducer';
+import { resetResultAction } from '../redux/result_reducer';
+import { useDispatch } from 'react-redux';
 
-export default function result() {
+export default function Result() {
+  const dispatch=useDispatch();
+
   function onRestart(){
-    console.log("On Restart");
+    dispatch(resetAllAction());
+    dispatch(resetResultAction());
   }
   return (
     <div className='container'>
@@ -32,8 +38,9 @@ export default function result() {
           <span className='bold'>Passed</span>
         </div>
       </div>
+      
       <div className='start'>
-        <Link className='btn' to={'/'} onClick={onRestart}>Restart</Link>
+        <Link className='btn' to={'/'} onClick={()=>onRestart()}>Restart</Link>
       </div>
       <div className='container'>
         <ResultTable />

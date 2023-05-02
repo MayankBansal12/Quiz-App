@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import data from "../database/data";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 // Custom Hook
 import { useFetchQuestion } from '../hooks/FetchQuestion';
+import { updateResult } from '../hooks/setResult';
 
-export default function Question() {
+export default function Question({onChecked}) {
     const [checked,setCheck]=useState(undefined);
     const [{isLoading, apiData, serverError}]=useFetchQuestion();
 
     const questions=useSelector(state=>state.questions.queue[state.questions.trace]);
-    const trace=useSelector(state=>state.questions.trace)
-    useEffect(()=>{
-        console.log(questions);
-        console.log(trace);
-    });
+    const { trace }=useSelector(state=>state.questions);
+    const result=useSelector(state=>state.result.result);
+    
+    const dispatch=useDispatch();
 
     useEffect(()=>{
-        // console.log(data);
-        console.log(isLoading);
-        // console.log(apiData);
-        // console.log(serverError);
-    });
+        console.log({trace,checked});
+        dispatch(updateResult({trace,checked}));
+    },[checked]);
     
-    function onSelect(){
-        // setCheck(true);
+    function onSelect(index){
+        onChecked(index);
+        setCheck(index);
+        dispatch(updateResult({trace,checked}));
     }
     
     if(isLoading){
@@ -40,9 +41,9 @@ export default function Question() {
             {
                 questions?.options.map((option,index)=>(
                     <li key={index}>
-                        <input type='radio' value={false} name="options" id={`q${index}-option`} onChange={onSelect()} />
+                        <input type='radio' value={false} name="options" id={`q${index}-option`} onChange={()=>onSelect(index)} />
                         <label className='text-primary' htmlFor={`q${index}-option`}>{option}</label>
-                        <div className='check'></div>
+                        <div className={`check ${result[trace]===index?"checked":""}`}></div>
                     </li>
                 ))
             }
