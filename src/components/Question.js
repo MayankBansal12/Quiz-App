@@ -13,13 +13,12 @@ export default function Question({onChecked}) {
     const questions=useSelector(state=>state.questions.queue[state.questions.trace]);
     const { trace }=useSelector(state=>state.questions);
     const result=useSelector(state=>state.result.result);
-    
     const dispatch=useDispatch();
-
+    
     useEffect(()=>{
-        console.log({trace,checked});
         dispatch(updateResult({trace,checked}));
-    },[checked]);
+    },[dispatch,trace,checked]);
+    useSelector(state=>console.log(state));
     
     function onSelect(index){
         onChecked(index);

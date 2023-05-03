@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Question from "./Question";
 import { useDispatch, useSelector } from "react-redux";
 import { moveNextQuestion, movePrevQuestion } from "../hooks/FetchQuestion";
@@ -10,11 +10,6 @@ export default function Quiz() {
     const dispatch = useDispatch();
     const [check, setCheck] = useState(undefined);
     const result = useSelector((state) => state.result.result);
-
-    useEffect(() => {
-        console.log(result);
-        console.log(queue.length);
-    });
 
     // Prev event handler
     function onPrev() {
@@ -34,6 +29,8 @@ export default function Quiz() {
                 dispatch(PushAnswer(check));
             }
         }
+        // reset the value check
+        setCheck(undefined);
     }
     function onChecked(check) {
         setCheck(check);
