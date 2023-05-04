@@ -1,3 +1,4 @@
+import { postServerData } from "../helper/helper";
 import * as Action from "../redux/result_reducer";
 
 export const PushAnswer=(result)=> async(dispatch)=>{
@@ -14,4 +15,18 @@ export const updateResult=(index)=>async(dispatch)=>{
     } catch (error) {
         console.log(error);
     }
+}
+
+export const publishData=(resultData)=>{
+    const {result, username}=resultData;
+    (async()=>{
+        try {
+            if(result!==[] && !username){
+                throw new Error("Can't find the data");
+            }
+            await postServerData('http://localhost:8000/api/result',resultData,data=>data);
+        } catch (error) {
+            console.log(error);
+        }
+    })();
 }

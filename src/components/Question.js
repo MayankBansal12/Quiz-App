@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import data from "../database/data";
 import { useDispatch, useSelector } from 'react-redux';
 
 // Custom Hook
@@ -18,7 +17,6 @@ export default function Question({onChecked}) {
     useEffect(()=>{
         dispatch(updateResult({trace,checked}));
     },[dispatch,trace,checked]);
-    useSelector(state=>console.log(state));
     
     function onSelect(index){
         onChecked(index);

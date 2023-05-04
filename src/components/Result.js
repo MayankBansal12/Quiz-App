@@ -6,13 +6,11 @@ import { resetAllAction } from '../redux/question_reducer';
 import { resetResultAction } from '../redux/result_reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { attempts_Number, earnPoints_Number, flagResult } from '../helper/helper'; 
+import { publishData } from '../hooks/setResult';
 
 export default function Result() {
   const dispatch=useDispatch();
   const {questions: {queue,answers}, result: { result, userId }}=useSelector(state=>state);
-  useEffect(()=>{
-    console.log(userId);
-  });
 
   const totalPoints=queue.length*10;
   const attempts=attempts_Number(result);
@@ -24,6 +22,9 @@ export default function Result() {
     dispatch(resetAllAction());
     dispatch(resetResultAction());
   }
+
+  // Store result in the database
+  publishData({result,username: userId,attempts, points: earnPoints, achieved: flag?"Passed":"Failed"})
   return (
     <div className='container'>
       <h1 className='title text-light'>Quiz Application</h1>
