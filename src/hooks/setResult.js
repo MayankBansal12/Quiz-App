@@ -1,5 +1,5 @@
 import { postServerData } from "../helper/helper";
-import * as Action from "../redux/result_reducer";
+import * as Action from "../redux/reducers/result_reducer";
 
 export const PushAnswer=(result)=> async(dispatch)=>{
     try {
@@ -24,7 +24,7 @@ export const publishData=(resultData)=>{
             if(result!==[] && !username){
                 throw new Error("Can't find the data");
             }
-            await postServerData('http://localhost:8000/api/result',resultData,data=>data);
+            await postServerData('https://quiz-server-j3ho.onrender.com/api/result',resultData,data=>data);
         } catch (error) {
             console.log(error);
         }

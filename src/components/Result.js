@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {Link} from "react-router-dom"
 import "../styles/Result.css";
 import ResultTable from "./ResultTable";
-import { resetAllAction } from '../redux/question_reducer';
-import { resetResultAction } from '../redux/result_reducer';
+import { resetAllAction } from '../redux/reducers/question_reducer';
+import { resetResultAction } from '../redux/reducers/result_reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { attempts_Number, earnPoints_Number, flagResult } from '../helper/helper'; 
 import { publishData } from '../hooks/setResult';

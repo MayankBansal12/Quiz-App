@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 // Redux actions
-import * as Action from "../redux/question_reducer";
+import * as Action from "../redux/reducers/question_reducer";
 import { getServerData } from "../helper/helper.js";
 
 export const useFetchQuestion= ()=>{
@@ -18,7 +18,7 @@ export const useFetchQuestion= ()=>{
         // Async function fetch backend data
         (async()=>{
             try {
-                const [{questions, answers}]=await getServerData(`http://localhost:8000/api/question`);
+                const [{questions, answers}]=await getServerData(`https://quiz-server-j3ho.onrender.com/api/question`);
                 if(questions?.length>0){
                     setGetData(prev=>({...prev, isLoading: false}));
                     setGetData(prev=>({...prev, apiData: {questions, answers}}));
