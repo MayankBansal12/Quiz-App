@@ -19,7 +19,7 @@ export default function Main() {
     <div className='container'>
         <h1 className='title text-light'>Quiz Application</h1>
         <ol>
-            <li>You will be asked 10 questions one after the other</li>
+            <li>You will be asked 5 questions one after the other</li>
             <li>10 points will be awarded for each correct answer</li>
             <li>Each option has three options. You have to choose only one</li>
             <li>You can review and change answer before submission</li>

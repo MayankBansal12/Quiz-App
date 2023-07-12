@@ -7,7 +7,7 @@ import { updateResult } from '../hooks/setResult';
 
 export default function Question({onChecked}) {
     const [checked,setCheck]=useState(undefined);
-    const [{isLoading, apiData, serverError}]=useFetchQuestion();
+    const [{isLoading, serverError}]=useFetchQuestion();
 
     const questions=useSelector(state=>state.questions.queue[state.questions.trace]);
     const { trace }=useSelector(state=>state.questions);
@@ -25,7 +25,7 @@ export default function Question({onChecked}) {
     }
     
     if(isLoading){
-        return <h3 className='text-light'>isLoading</h3>
+        return <h3 className='text-light'>Loading...</h3>
     }
     if(serverError){
         return <h3 className='text-light'>{serverError || "Unknown Error"}</h3>
